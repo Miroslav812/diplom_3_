@@ -60,7 +60,7 @@ public class NavigationTest extends BaseTest {
         }
 
         // Assert - должны быть на главной странице
-        assertTrue("Должны быть на главной странице", isOnMainPage());
+        assertTrue("Должны быть  на главной странице", isOnMainPage());
         System.out.println("Успешно вернулись на главную через логотип");
     }
 }

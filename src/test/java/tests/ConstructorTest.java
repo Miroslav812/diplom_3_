@@ -85,13 +85,13 @@ public class ConstructorTest extends BaseTest {
             assertTrue("Должна быть активна вкладка 'Соусы'", mainPage.isSaucesSectionActive());
 
             // 2. Переходим к начинкам
-            System.out.println("2. Переходим к разделу 'Начинки'");
+            System.out.println("2. Переходим к  разделу 'Начинки'");
             mainPage.clickFillingsSection();
             Thread.sleep(1000);
             assertTrue("Должна быть активна вкладка 'Начинки'", mainPage.isFillingsSectionActive());
 
             // 3. Возвращаемся к булкам
-            System.out.println("3. Возвращаемся к разделу 'Булки'");
+            System.out.println("3. Возвращаемся  к разделу 'Булки'");
             mainPage.clickBunsSection();
             Thread.sleep(1000);
             assertTrue("Должна быть активна вкладка 'Булки'", mainPage.isBunsSectionActive());

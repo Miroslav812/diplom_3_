@@ -45,6 +45,6 @@ public class LoginTest extends BaseTest {
 
         // Assert - проверяем, что мы на странице логина
         assertTrue("Должны быть на странице логина", isOnLoginPage());
-        System.out.println("Успешно перешли на страницу логина через ЛК");
+        System.out.println("Успешно  перешли на страницу логина через ЛК");
     }
 }

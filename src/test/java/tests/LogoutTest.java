@@ -11,7 +11,7 @@ public class LogoutTest extends BaseTest {
     @DisplayName("Переход в личный кабинет без авторизации")
     public void testNavigateToPersonalAccountWithoutLogin() {
         // Этот тест проверяет переход в ЛК без авторизации
-        System.out.println("=== Тест: Переход в ЛК без авторизации ===");
+        System.out.println("=== Тест: Переход  в ЛК без авторизации ===");
 
         // Act - переходим в личный кабинет
         mainPage.clickPersonalAccountLink();
