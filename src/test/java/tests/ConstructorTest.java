@@ -1,105 +1,118 @@
 package tests;
 
-import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
-@DisplayName("Тесты конструктора")
+@Feature("Конструктор бургеров")
 public class ConstructorTest extends BaseTest {
 
     @Test
-    @DisplayName("Переход к разделу 'Булки'")
+    @Story("Навигация по разделам конструктора")
+    @Description("Переход к разделу 'Булки' через другие разделы")
     public void testNavigateToBunsSection() {
-        System.out.println("=== Тест: Переход к разделу 'Булки' ===");
-
         // Сначала переходим к другому разделу, затем возвращаемся к булкам
         try {
             // Переходим к соусам
-            System.out.println("Переходим к разделу 'Соусы'");
-            mainPage.clickSaucesSection();
-            Thread.sleep(2000);
+            navigateToSaucesSection();
 
             // Теперь переходим к булкам
-            System.out.println("Переходим к разделу 'Булки'");
-            mainPage.clickBunsSection();
-            Thread.sleep(2000);
+            navigateToBunsSection();
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
         // Assert
-        assertTrue("Должна быть активна вкладка 'Булки'",
-                mainPage.isBunsSectionActive());
-        System.out.println("Раздел 'Булки' активен");
+        assertBunsSectionActive();
     }
 
     @Test
-    @DisplayName("Переход к разделу 'Соусы'")
+    @Story("Навигация по разделам конструктора")
+    @Description("Переход к разделу 'Соусы'")
     public void testNavigateToSaucesSection() {
-        System.out.println("=== Тест: Переход к разделу 'Соусы' ===");
-
         // Act
         try {
-            mainPage.clickSaucesSection();
-            Thread.sleep(2000);
+            navigateToSaucesSection();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
         // Assert
-        assertTrue("Должна быть активна вкладка 'Соусы'",
-                mainPage.isSaucesSectionActive());
-        System.out.println("Раздел 'Соусы' активен");
+        assertSaucesSectionActive();
     }
 
     @Test
-    @DisplayName("Переход к разделу 'Начинки'")
+    @Story("Навигация по разделам конструктора")
+    @Description("Переход к разделу 'Начинки'")
     public void testNavigateToFillingsSection() {
-        System.out.println("=== Тест: Переход к разделу 'Начинки' ===");
-
         // Act
         try {
-            mainPage.clickFillingsSection();
-            Thread.sleep(2000);
+            navigateToFillingsSection();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
         // Assert
-        assertTrue("Должна быть активна вкладка 'Начинки'",
-                mainPage.isFillingsSectionActive());
-        System.out.println("Раздел 'Начинки' активен");
+        assertFillingsSectionActive();
     }
 
     @Test
-    @DisplayName("Навигация по всем разделам конструктора")
+    @Story("Навигация по разделам конструктора")
+    @Description("Последовательная навигация по всем разделам конструктора")
     public void testAllConstructorSectionsNavigation() {
-        System.out.println("=== Тест: Навигация по всем разделам ===");
-
         try {
             // 1. Переходим к соусам
-            System.out.println("1. Переходим к разделу 'Соусы'");
-            mainPage.clickSaucesSection();
-            Thread.sleep(1000);
-            assertTrue("Должна быть активна вкладка 'Соусы'", mainPage.isSaucesSectionActive());
+            navigateToSaucesSection();
+            assertSaucesSectionActive();
 
             // 2. Переходим к начинкам
-            System.out.println("2. Переходим к  разделу 'Начинки'");
-            mainPage.clickFillingsSection();
-            Thread.sleep(1000);
-            assertTrue("Должна быть активна вкладка 'Начинки'", mainPage.isFillingsSectionActive());
+            navigateToFillingsSection();
+            assertFillingsSectionActive();
 
             // 3. Возвращаемся к булкам
-            System.out.println("3. Возвращаемся  к разделу 'Булки'");
-            mainPage.clickBunsSection();
-            Thread.sleep(1000);
-            assertTrue("Должна быть активна вкладка 'Булки'", mainPage.isBunsSectionActive());
-
-            System.out.println("Навигация по всем разделам работает корректно");
+            navigateToBunsSection();
+            assertBunsSectionActive();
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    @Step("Переход к разделу 'Булки'")
+    private void navigateToBunsSection() throws InterruptedException {
+        mainPage.clickBunsSection();
+        Thread.sleep(2000);
+    }
+
+    @Step("Переход к разделу 'Соусы'")
+    private void navigateToSaucesSection() throws InterruptedException {
+        mainPage.clickSaucesSection();
+        Thread.sleep(2000);
+    }
+
+    @Step("Переход к разделу 'Начинки'")
+    private void navigateToFillingsSection() throws InterruptedException {
+        mainPage.clickFillingsSection();
+        Thread.sleep(2000);
+    }
+
+    @Step("Проверка что раздел 'Булки' активен")
+    private void assertBunsSectionActive() {
+        assertTrue("Должна быть активна вкладка 'Булки'", mainPage.isBunsSectionActive());
+    }
+
+    @Step("Проверка что раздел 'Соусы' активен")
+    private void assertSaucesSectionActive() {
+        assertTrue("Должна быть активна вкладка 'Соусы'", mainPage.isSaucesSectionActive());
+    }
+
+    @Step("Проверка что раздел 'Начинки' активен")
+    private void assertFillingsSectionActive() {
+        assertTrue("Должна быть активна вкладка 'Начинки'", mainPage.isFillingsSectionActive());
     }
 }

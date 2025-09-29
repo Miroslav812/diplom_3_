@@ -1,6 +1,7 @@
 package tests;
 
 import clients.UserClient;
+import io.qameta.allure.Step;
 import models.User;
 import org.junit.After;
 import org.junit.Before;
@@ -46,6 +47,7 @@ public class BaseTest {
         }
     }
 
+    @Step("Переход на главную страницу")
     protected void goToMainPage() {
         driver.get("https://stellarburgers.nomoreparties.site/");
         // Просто ждем немного вместо сложных ожиданий
@@ -56,6 +58,7 @@ public class BaseTest {
         }
     }
 
+    @Step("Авторизация пользователя: {email}")
     protected void simpleLogin(String email, String password) {
         // Простой логин без сложных ожиданий
         goToMainPage();
@@ -89,6 +92,7 @@ public class BaseTest {
         }
     }
 
+    @Step("Выход из системы")
     protected void simpleLogout() {
         // Простой выход
         goToMainPage();
@@ -123,10 +127,12 @@ public class BaseTest {
         }
     }
 
+    @Step("Проверка что находимся на странице логина")
     protected boolean isOnLoginPage() {
         return driver.getCurrentUrl().contains("/login");
     }
 
+    @Step("Проверка что находимся на главной странице")
     protected boolean isOnMainPage() {
         String currentUrl = driver.getCurrentUrl();
         return currentUrl.equals("https://stellarburgers.nomoreparties.site/") ||

@@ -1,30 +1,44 @@
 package tests;
 
-import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
-@DisplayName("Тесты выхода из аккаунта")
+@Feature("Выход из системы")
 public class LogoutTest extends BaseTest {
 
     @Test
-    @DisplayName("Переход в личный кабинет без авторизации")
+    @Story("Доступ к личному кабинету")
+    @Description("Переход в личный кабинет без авторизации должен перенаправлять на страницу логина")
     public void testNavigateToPersonalAccountWithoutLogin() {
-        // Этот тест проверяет переход в ЛК без авторизации
-        System.out.println("=== Тест: Переход  в ЛК без авторизации ===");
-
         // Act - переходим в личный кабинет
-        mainPage.clickPersonalAccountLink();
+        clickPersonalAccountLink();
+        waitForRedirect();
 
-        // Ждем
+        // Assert - должны быть перенаправлены на логин
+        assertRedirectedToLoginPage();
+    }
+
+    @Step("Клик на кнопку 'Личный кабинет' без авторизации")
+    private void clickPersonalAccountLink() {
+        mainPage.clickPersonalAccountLink();
+    }
+
+    @Step("Ожидание перенаправления на страницу логина")
+    private void waitForRedirect() {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
 
-        // Assert - должны быть перенаправлены на логин
+    @Step("Проверка перенаправления на страницу логина")
+    private void assertRedirectedToLoginPage() {
         assertTrue("Должны быть на странице логина", isOnLoginPage());
-        System.out.println("Успешно перенаправлены на страницу логина");
     }
 }

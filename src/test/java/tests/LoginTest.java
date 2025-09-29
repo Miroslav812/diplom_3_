@@ -1,50 +1,61 @@
 package tests;
 
-import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
-@DisplayName("Тесты входа пользователя")
+@Feature("Авторизация пользователя")
 public class LoginTest extends BaseTest {
 
     @Test
-    @DisplayName("Вход через кнопку 'Войти в аккаунт' на главной странице")
+    @Story("Способы входа в систему")
+    @Description("Вход через кнопку 'Войти в аккаунт' на главной странице")
     public void testLoginViaMainPageLoginButton() {
-        // Этот тест будет простым - просто проверяем переход на страницу логина
-        System.out.println("=== Тест: Переход на страницу логина ===");
-
         // Act - кликаем на кнопку входа
-        mainPage.clickLoginAccountButton();
-
-        // Ждем
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        clickLoginAccountButton();
+        waitForPageLoad();
 
         // Assert - проверяем, что мы на странице логина
-        assertTrue("Должны быть на странице логина", isOnLoginPage());
-        System.out.println("Успешно перешли на страницу логина");
+        assertOnLoginPage();
     }
 
     @Test
-    @DisplayName("Вход через кнопку 'Личный кабинет' на главной странице")
+    @Story("Способы входа в систему")
+    @Description("Вход через кнопку 'Личный кабинет' на главной странице")
     public void testLoginViaPersonalAccountButton() {
-        System.out.println("=== Тест: Переход в ЛК без авторизации ===");
-
         // Act - кликаем на личный кабинет
-        mainPage.clickPersonalAccountLink();
+        clickPersonalAccountLink();
+        waitForPageLoad();
 
-        // Ждем
+        // Assert - проверяем, что мы на странице логина
+        assertOnLoginPage();
+    }
+
+    @Step("Клик на кнопку 'Войти в аккаунт'")
+    private void clickLoginAccountButton() {
+        mainPage.clickLoginAccountButton();
+    }
+
+    @Step("Клик на кнопку 'Личный кабинет'")
+    private void clickPersonalAccountLink() {
+        mainPage.clickPersonalAccountLink();
+    }
+
+    @Step("Ожидание загрузки страницы")
+    private void waitForPageLoad() {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
 
-        // Assert - проверяем, что мы на странице логина
+    @Step("Проверка что находимся на странице логина")
+    private void assertOnLoginPage() {
         assertTrue("Должны быть на странице логина", isOnLoginPage());
-        System.out.println("Успешно  перешли на страницу логина через ЛК");
     }
 }
